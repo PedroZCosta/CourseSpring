@@ -1,6 +1,7 @@
 package com.example.CourseSpring.entities;
 
 import com.example.CourseSpring.repositories.CategoryRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +20,9 @@ public class Category implements Serializable {
     private Long id;
     private String name;
 
-    @Transient
+    // por ser uma relacao bidirecional ele chama uma lista q chama a outra e a biblbioteca buga tudo
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
 
