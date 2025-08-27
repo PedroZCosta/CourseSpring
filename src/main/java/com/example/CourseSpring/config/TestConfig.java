@@ -1,14 +1,8 @@
 package com.example.CourseSpring.config;
 
-import com.example.CourseSpring.entities.Category;
-import com.example.CourseSpring.entities.Order;
-import com.example.CourseSpring.entities.Product;
-import com.example.CourseSpring.entities.User;
+import com.example.CourseSpring.entities.*;
 import com.example.CourseSpring.entities.enums.OrderStatus;
-import com.example.CourseSpring.repositories.CategoryRepository;
-import com.example.CourseSpring.repositories.OrderRepository;
-import com.example.CourseSpring.repositories.ProductRepository;
-import com.example.CourseSpring.repositories.UserRepository;
+import com.example.CourseSpring.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner { // classe para popular BD
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception { // roda no inicio da aplicacao sempre
@@ -69,5 +66,11 @@ public class TestConfig implements CommandLineRunner { // classe para popular BD
         userRepository.saveAll(Arrays.asList(u1, u2)); // salva no banco de dados
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
